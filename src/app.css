@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Michroma&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+* {
+    font-family: "Michroma", sans-serif;
+    font-style: normal;
+}
+
+.player-list-wrapper {
+    padding: 10px;
+    max-height: calc(100vh - 150px);
+    overflow-y: auto;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;     /* Firefox */
+}
+
+.player-list-wrapper::-webkit-scrollbar {
+    display: none;
+}
+
+.overall-player-list {
+    padding: 10px;
+    max-height: calc(100vh - 450px);
+    overflow-y: auto;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;     /* Firefox */
+}
+
+.select-player-list {
+    max-height: 150px;
+    overflow-y: auto;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;     /* Firefox */
+}
