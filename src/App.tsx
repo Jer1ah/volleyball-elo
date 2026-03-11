@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/set-state-in-effect */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect } from "react";
 import settingsIcon from "./assets/settings.png";
 import crownIcon from "./assets/crown.png";
@@ -7,9 +9,9 @@ import './app.css';
 const INITIAL_ELO = 1000;
 const K_FACTOR = 32;
 
-const calculateNewRatings = (teamA, teamB, scoreA, scoreB) => {
-  const avgA = teamA.reduce((s, p) => s + p.elo, 0) / teamA.length;
-  const avgB = teamB.reduce((s, p) => s + p.elo, 0) / teamB.length;
+const calculateNewRatings = (teamA: any, teamB: any, scoreA: any, scoreB: any) => {
+  const avgA = teamA.reduce((s: any, p: any) => s + p.elo, 0) / teamA.length;
+  const avgB = teamB.reduce((s: any, p: any) => s + p.elo, 0) / teamB.length;
   const expectedA = 1 / (1 + Math.pow(10, (avgB - avgA) / 400));
   const actualA = scoreA > scoreB ? 1 : 0;
   const mov = Math.log(Math.abs(scoreA - scoreB) + 1) * (2.2 / ((actualA === 1 ? avgA - avgB : avgB - avgA) * 0.001 + 2.2));
@@ -18,7 +20,7 @@ const calculateNewRatings = (teamA, teamB, scoreA, scoreB) => {
 
 // ─── CONSTANTS ────────────────────────────────────────────────────────────────
 const STORAGE_KEY = "vb_log_state";
-const getRank = elo => {
+const getRank = (elo: number) => {
   if (elo >= 1750) return { label: "Champion", color: "#FF3E3E" };
   if (elo >= 1400) return { label: "Diamond", color: "#00F5FF" };
   if (elo >= 1250) return { label: "Platinum", color: "#BF5AF2" };
@@ -28,23 +30,23 @@ const getRank = elo => {
 };
 
 // ─── COMPONENTS ───────────────────────────────────────────────────────────────
-const Pill = ({ label, color }) => (
+const Pill = ({ label, color }: { label: string; color: string }) => (
   <span style={{ fontSize: 10, padding: "2px 8px", borderRadius: 99, fontWeight: 800, background: `${color}20`, color, border: `1px solid ${color}50` }}>{label}</span>
 );
 
-const GTag = ({ gender }) => (
+const GTag = ({ gender }: { gender: string }) => (
   <span style={{ width: 18, height: 18, borderRadius: "50%", fontSize: 9, fontWeight: 800, display: "inline-flex", alignItems: "center", justifyContent: "center", background: gender === "F" ? "rgba(255,105,180,0.2)" : "rgba(100,160,255,0.2)", color: gender === "F" ? "#FF69B4" : "#5BA4F5", border: `1px solid ${gender === "F" ? "#FF69B480" : "#5BA4F5"}` }}>{gender}</span>
 );
 
 export default function EloTracker() {
-  const [players, setPlayers] = useState([]);
-  const [matches, setMatches] = useState([]); 
+  const [players, setPlayers] = useState<any>([]);
+  const [matches, setMatches] = useState<any[]>([]); 
   const [view, setView] = useState("home"); 
   const [tab, setTab] = useState("ranks"); 
   const [showMenu, setShowMenu] = useState(false);
   
-  const [teamA, setTeamA] = useState([]);
-  const [teamB, setTeamB] = useState([]);
+  const [teamA, setTeamA] = useState<any[]>([]);
+  const [teamB, setTeamB] = useState<any[]>([]);
   const [scoreA, setScoreA] = useState(0);
   const [scoreB, setScoreB] = useState(0);
   const [newName, setNewName] = useState("");
@@ -71,10 +73,10 @@ export default function EloTracker() {
     setView("home");
   };
 
-  const deleteMatch = (matchId) => {
+  const deleteMatch = (matchId: any) => {
     const matchToDelete = matches.find(m => m.id === matchId);
 
-    setPlayers(prevPlayers => prevPlayers.map(p => {
+    setPlayers((prevPlayers: any) => prevPlayers.map((p: any) => {
       // Optional chaining (?.) ensures we don't crash if arrays are missing
       const isA = matchToDelete?.teamAIds?.includes(p.id);
       const isB = matchToDelete?.teamBIds?.includes(p.id);
@@ -111,9 +113,9 @@ export default function EloTracker() {
       eloShift: shift
     };
 
-    setPlayers(prev => prev.map(p => {
-      const isA = teamA.find(t => t.id === p.id);
-      const isB = teamB.find(t => t.id === p.id);
+    setPlayers((prev: any) => prev.map((p: any) => {
+      const isA = teamA.find((t: any) => t.id === p.id);
+      const isB = teamB.find((t: any) => t.id === p.id);
       if (!isA && !isB) return p;
       const won = (isA && scoreA > scoreB) || (isB && scoreB > scoreA);
       const change = isA ? shift : -shift;
@@ -126,9 +128,9 @@ export default function EloTracker() {
     setTab("log");
   };
 
-  const togglePlayerSelection = (p) => {
-    if (teamA.find(x => x.id === p.id)) setTeamA(teamA.filter(x => x.id !== p.id));
-    else if (teamB.find(x => x.id === p.id)) setTeamB(teamB.filter(x => x.id !== p.id));
+  const togglePlayerSelection = (p: any) => {
+    if (teamA.find((x: any) => x.id === p.id)) setTeamA(teamA.filter((x: any) => x.id !== p.id));
+    else if (teamB.find((x: any) => x.id === p.id)) setTeamB(teamB.filter((x: any) => x.id !== p.id));
     else if (teamA.length < 2) setTeamA([...teamA, p]);
     else setTeamB([...teamB, p]);
   };
@@ -221,7 +223,7 @@ export default function EloTracker() {
           <div className="card">
             <h3 style={{ margin: '0 0 16px' }}>Select Players</h3>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }} className="select-player-list">
-              {players.map(p => {
+              {players.map((p: any) => {
                 const isA = teamA.find(x => x.id === p.id);
                 const isB = teamB.find(x => x.id === p.id);
                 return (
@@ -257,10 +259,10 @@ export default function EloTracker() {
             <button onClick={addNewPlayer} className="btn" style={{ width: "100%", background: "#5C7CFA", color: "white" }}>ADD TO ROSTER</button>
           </div>
           <div className="overall-player-list">
-             {players.map(p => (
+             {players.map((p: any) => (
                <div key={p.id} style={{ display: "flex", justifyContent: "space-between", padding: "12px 0", borderBottom: "1px solid #21262D" }}>
                  <span>{p.name} <span style={{ color: "#484F58", fontSize: 12 }}>({p.gender})</span></span>
-                 <button onClick={() => setPlayers(players.filter(x => x.id !== p.id))} style={{ background: "none", border: "none", color: "#FF6B6B", cursor: "pointer" }}>Delete</button>
+                 <button onClick={() => setPlayers(players.filter((x: any) => x.id !== p.id))} style={{ background: "none", border: "none", color: "#FF6B6B", cursor: "pointer" }}>Delete</button>
                </div>
              ))}
           </div>
