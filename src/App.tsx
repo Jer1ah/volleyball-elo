@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/set-state-in-effect */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import settingsIcon from "./assets/settings.png";
 import crownIcon from "./assets/crown.png";
 import './app.css';
