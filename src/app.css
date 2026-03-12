@@ -3,6 +3,7 @@
 body {
     margin: 0;
     padding: 0;
+    background-color: rgb(13, 17, 23);
 }
 
 * {
@@ -11,13 +12,24 @@ body {
 }
 
 .player-list-wrapper {
-    max-height: calc(100vh - 230px);
+    height: calc(100vh - 202px);
+    overflow-y: auto;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;     /* Firefox */
+}
+
+.matches-list {
+    height: calc(100vh - 202px);
     overflow-y: auto;
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;     /* Firefox */
 }
 
 .player-list-wrapper::-webkit-scrollbar {
+    display: none;
+}
+
+.matches-list::-webkit-scrollbar {
     display: none;
 }
 
@@ -96,6 +108,7 @@ body {
 
 .record-match-radio-group .ant-radio-button-wrapper-checked {
     background-color: #5C7CFA;
-    border-color: #5C7CFA;
+    border-color: #5C7CFA !important;
     color: white !important;
+    box-shadow: none !important;
 }

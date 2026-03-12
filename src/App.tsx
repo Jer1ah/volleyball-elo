@@ -144,7 +144,7 @@ export default function EloTracker() {
   );
 
   return (
-    <div style={{ maxWidth: 500, margin: "0 auto", background: "#0D1117", color: "#E6EDF3", minHeight: "100vh", fontFamily: "sans-serif", position: "relative" }}>
+    <div style={{ maxWidth: 500, margin: "0 auto", background: "#0D1117", color: "#E6EDF3", fontFamily: "sans-serif", position: "relative" }}>
       <style>{`
         .btn { padding: 12px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.2s; }
         .tab-btn { flex: 1; padding: 14px; background: transparent; color: #8B949E; border: none; border-bottom: 2px solid #30363D; cursor: pointer; font-weight: bold; }
@@ -224,7 +224,8 @@ export default function EloTracker() {
             {matches.length === 0 ? (
               <div style={{ textAlign: "center", padding: 40, color: "#484F58" }}>No matches recorded.</div>
             ) : (
-              matches.map(m => (
+              <div className="matches-list">
+              {matches.map(m => (
                 <div key={m.id} className="card">
                   <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 8 }}>
                       <span style={{ fontSize: 11, color: "#8B949E" }}>{m.date} • {m.type}</span>
@@ -241,7 +242,8 @@ export default function EloTracker() {
                       </div>
                   </div>
                 </div>
-              ))
+              ))}
+              </div>
             )}
           </>
         )}
