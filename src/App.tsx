@@ -50,8 +50,8 @@ export default function EloTracker() {
   const [matchType, setMatchType] = useState(2); // 2 for Doubles, 3 for Triples
   const [teamA, setTeamA] = useState<any[]>([]);
   const [teamB, setTeamB] = useState<any[]>([]);
-  const [scoreA, setScoreA] = useState(0);
-  const [scoreB, setScoreB] = useState(0);
+  const [scoreA, setScoreA] = useState<number | undefined>(undefined);
+  const [scoreB, setScoreB] = useState<number | undefined>(undefined);
   
   // New Player State
   const [newName, setNewName] = useState("");
@@ -128,7 +128,7 @@ export default function EloTracker() {
     }));
 
     setMatches([matchEntry, ...matches]);
-    setTeamA([]); setTeamB([]); setScoreA(0); setScoreB(0);
+    setTeamA([]); setTeamB([]); setScoreA(undefined); setScoreB(undefined);
     setIsMatchModalOpen(false);
   };
 
@@ -295,7 +295,7 @@ export default function EloTracker() {
       <Modal 
         title="Record Match" 
         open={isMatchModalOpen} 
-        onCancel={() => { setIsMatchModalOpen(false); setTeamA([]); setTeamB([]); }} 
+        onCancel={() => { setIsMatchModalOpen(false); setTeamA([]); setTeamB([]); setScoreA(undefined); setScoreB(undefined); }} 
         onOk={handleMatchSubmit} className="dark-modal" 
         okText="Submit Match"
       >
@@ -346,12 +346,31 @@ export default function EloTracker() {
             <div style={{ background: '#1c2128', padding: '10px', borderRadius: '8px', border: '1px solid #5C7CFA' }}>
               <div style={{ color: '#5C7CFA', fontWeight: 'bold', fontSize: 12 }}>BLUE TEAM</div>
               <div style={{ fontSize: 10, color: '#8B949E', minHeight: '20px' }}>{teamA.map(p => p.name).join(', ') || 'Select players'}</div>
-              <Input type="number" value={scoreA} onChange={e => setScoreA(parseInt(e.target.value) || 0)} className="dark-input" style={{ marginTop: 8 }} />
+              <Input 
+                type="number" 
+                placeholder="Enter score" 
+                value={scoreA ?? ''}
+                onChange={e => {
+                  const val = e.target.value;
+                  setScoreA(val === '' ? undefined : parseInt(val));
+                }}
+                className="dark-input" style={{ marginTop: 8 }} 
+              />
             </div>
             <div style={{ background: '#1c2128', padding: '10px', borderRadius: '8px', border: '1px solid #FFBE0B' }}>
               <div style={{ color: '#FFBE0B', fontWeight: 'bold', fontSize: 12 }}>GOLD TEAM</div>
               <div style={{ fontSize: 10, color: '#8B949E', minHeight: '20px' }}>{teamB.map(p => p.name).join(', ') || 'Select players'}</div>
-              <Input type="number" value={scoreB} onChange={e => setScoreB(parseInt(e.target.value) || 0)} className="dark-input" style={{ marginTop: 8 }} />
+              <Input 
+              type="number" 
+              placeholder="Enter score" 
+              value={scoreB ?? ''}
+              onChange={e => {
+                const val = e.target.value;
+                setScoreB(val === '' ? undefined : parseInt(val));
+              }}
+              className="dark-input" 
+              style={{ marginTop: 8 }} 
+            />
             </div>
           </div>
         </div>
