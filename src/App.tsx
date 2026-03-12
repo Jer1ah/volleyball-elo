@@ -328,7 +328,14 @@ export default function EloTracker() {
               const isA = teamA.find(x => x.id === p.id);
               const isB = teamB.find(x => x.id === p.id);
               return (
-                <button key={p.id} onClick={() => togglePlayerSelection(p)} className="btn" style={{ background: isA ? "#5C7CFA" : isB ? "#FFBE0B" : "#21262D", color: "white", fontSize: 11, padding: '5px 10px' }}>
+                <button 
+                  key={p.id} 
+                  onClick={() => {
+                    togglePlayerSelection(p);
+                    setPlayerSearch("");
+                  }} 
+                  className="btn" 
+                  style={{ background: isA ? "#5C7CFA" : isB ? "#FFBE0B" : "#21262D", color: "white", fontSize: 11, padding: '5px 10px' }}>
                   {p.name}
                 </button>
               );
