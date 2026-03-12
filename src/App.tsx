@@ -50,8 +50,8 @@ export default function EloTracker() {
   const [matchType, setMatchType] = useState(2); // 2 for Doubles, 3 for Triples
   const [teamA, setTeamA] = useState<any[]>([]);
   const [teamB, setTeamB] = useState<any[]>([]);
-  const [scoreA, setScoreA] = useState<number | undefined>(undefined);
-  const [scoreB, setScoreB] = useState<number | undefined>(undefined);
+  const [scoreA, setScoreA] = useState<any>(undefined);
+  const [scoreB, setScoreB] = useState<any>(undefined);
   
   // New Player State
   const [newName, setNewName] = useState("");
