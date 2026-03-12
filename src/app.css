@@ -23,14 +23,14 @@ html, body {
 }
 
 .player-list-wrapper {
-    height: calc(100vh - 202px);
+    height: calc(100vh - 244px);
     overflow-y: auto;
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;     /* Firefox */
 }
 
 .matches-list {
-    height: calc(100vh - 202px);
+    height: calc(100vh - 244px);
     overflow-y: auto;
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;     /* Firefox */

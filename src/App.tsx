@@ -311,7 +311,17 @@ export default function EloTracker() {
             <Radio value={3}>Triples</Radio>
           </Radio.Group>
 
-          <Input prefix={<SearchOutlined />} placeholder="Search players..." value={playerSearch} onChange={e => setPlayerSearch(e.target.value)} className="dark-input" />
+          <Input 
+            prefix={<SearchOutlined />} 
+            placeholder="Search players..." 
+            value={playerSearch} 
+            onChange={e => setPlayerSearch(e.target.value)} 
+            className="dark-input" 
+            autoComplete="off"
+            autoCorrect="off"
+            autoCapitalize="none"
+            spellCheck="false"
+          />
           
           <div className="player-grid">
             {filteredPlayers.map((p: any) => {
